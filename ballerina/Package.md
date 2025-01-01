@@ -56,7 +56,8 @@ Within app developer accounts, you can create developer test accounts to test ap
 <img src="../docs/setup/resources/config-auth.png" width="70%">
 
 2. In the `Scopes` section, add the following scopes for your app using the `Add new scopes` button.
-   - `forms`
+   - `crm.objects.carts.read`
+   - `crm.objects.carts.write`
 
 <img src="../docs/setup/resources/add-scopes.png" width="70%">
 
