@@ -84,7 +84,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src="../docs/setup/resources/hubspot-oauth-consent-screen.png.png" style="width: 70%;">
+   <img src="../docs/setup/resources/hubspot-oauth-consent-screen.png" style="width: 70%;">
 
 3. A code will be displayed in the browser. Copy the code.
 
