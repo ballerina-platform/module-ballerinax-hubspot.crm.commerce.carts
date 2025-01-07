@@ -19,7 +19,7 @@
     "x-hubspot-introduction" : "Use the orders API to create and manage data related to ecommerce purchases in HubSpot. This can be especially useful for keeping HubSpot data synced with external ecommerce platforms, such as Shopify and NetSuite."
   },
   "servers" : [ {
-    "url" : "https://api.hubapi.com"
+    "url" : "https://api.hubapi.com/crm/v3/objects"
   } ],
   "tags" : [ {
     "name" : "Batch"
@@ -29,7 +29,7 @@
     "name" : "Search"
   } ],
   "paths" : {
-    "/crm/v3/objects/carts/batch/read" : {
+    "/carts/batch/read" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Read a batch of carts by internal ID, or unique property values",
@@ -88,7 +88,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/{cartId}" : {
+    "/carts/{cartId}" : {
       "get" : {
         "tags" : [ "Basic" ],
         "summary" : "Read",
@@ -272,7 +272,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/batch/archive" : {
+    "/carts/batch/archive" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Archive a batch of carts by ID",
@@ -304,7 +304,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/batch/create" : {
+    "/carts/batch/create" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create a batch of carts",
@@ -352,7 +352,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/batch/update" : {
+    "/carts/batch/update" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Update a batch of carts",
@@ -400,7 +400,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts" : {
+    "/carts" : {
       "get" : {
         "tags" : [ "Basic" ],
         "summary" : "List",
@@ -538,7 +538,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/batch/upsert" : {
+    "/carts/batch/upsert" : {
       "post" : {
         "tags" : [ "Batch" ],
         "summary" : "Create or update a batch of carts by unique property values",
@@ -586,7 +586,7 @@
         } ]
       }
     },
-    "/crm/v3/objects/carts/search" : {
+    "/carts/search" : {
       "post" : {
         "tags" : [ "Search" ],
         "operationId" : "post-/crm/v3/objects/carts/search",
