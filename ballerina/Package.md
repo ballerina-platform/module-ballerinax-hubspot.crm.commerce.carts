@@ -127,11 +127,67 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 ## Quickstart
 
-[//]: # (TODO: Add a quickstart guide to demonstrate a basic functionality of the module, including sample code snippets.)
+To use the `HubSpot CRM Commerce Carts` connector in your Ballerina application, update the `.bal` file as follows:
+
+### Step 1: Import the module
+
+Import the `hubspot.crm.commerce.carts` module and `oauth2` module.
+
+```ballerina
+import ballerinax/hubspot.crm.commerce.carts as hscarts;
+import ballerina/oauth2;
+```
+### Step 2: Instantiate a new connector
+
+1. Instantiate a `hscarts:ConnectionConfig` with the obtained credentials and initialize the connector with it.
+
+    ```ballerina 
+    configurable string clientId = ?;
+    configurable string clientSecret = ?;
+    configurable string refreshToken = ?;
+
+    final hscarts:ConnectionConfig config = {
+        auth : {
+            clientId,
+            clientSecret,
+            refreshToken,
+            credentialBearer: oauth2:POST_BODY_BEARER
+        }
+    };
+
+    final hscarts:Client baseClient = check new hscarts:Client(config, serviceUrl = "https://api.hubapi.com/crm/v3/objects"); 
+    ```
+
+2. Create a `Config.toml` file and, configure the obtained credentials in the above steps as follows:
+
+   ```toml
+    clientId = <Client Id>
+    clientSecret = <Client Secret>
+    refreshToken = <Refresh Token>
+   ```
+
+### Step 3: Invoke the connector operation
+
+Now, utilize the available connector operations. A sample usecase is shown below.
+
+#### Create a new Cart
+
+```ballerina
+public function main() returns error? {
+   hscarts:SimplePublicObjectInputForCreate payload = {
+      "properties": {
+        "hs_source_store": "Dog Cafe - Italy",
+        "hs_total_price": "500",
+        "hs_currency_code": "USD",
+        "hs_tax": "36.25",
+        "hs_tags": "donuts, bagels"
+      }
+    };
+
+    hscarts:SimplePublicObject response =  check baseClient ->/carts.post(payload = payload);
+}
+```
 
 ## Examples
 
 The `HubSpot CRM Commerce Carts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/), covering the following use cases:
-
-[//]: # (TODO: Add examples)
-
