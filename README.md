@@ -8,17 +8,15 @@
 
 ## Overview
 
-[HubSpot](https://www.hubspot.com/our-story) is a customer platform with all the software, integrations, and resources users need to connect thier marketing, sales, and customer service.
+[HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform. 
 
-The `hubspot.crm.commerce.carts` package offers APIs to connect and interact with [CRM Commerce Carts API](https://developers.hubspot.com/docs/reference/api/crm/commerce/carts) endpoints, specifically based on HubSpot API v3.
+The `ballerinax/hubspot.crm.commerce.carts` package offers APIs to connect and interact with [HubSpot CRM Commerce Carts API](https://developers.hubspot.com/docs/reference/api/crm/commerce/carts) endpoints, specifically based on [OpenAPI specification for HubSpot CRM Commerce Carts API v3](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Carts/Rollouts/424/v3/carts.json).
 
->**_NOTE:_**             
-This package may be changed in the future based on the HubSpot API changes, since it is currently under development and is subject to change based on testing and feedback. By using this package, you are agreeing to accept any future changes that might occur and understand the risk associated with testing an unstable API.
-Refer to the [HubSpot Developer Terms](https://legal.hubspot.com/developer-terms?_gl=1*fmuxuh*_ga*NDU4NDIxOTA5LjE3MzQ3ODM3Mjg.*_ga_LXTM6CQ0XK*MTczNDgwNjI1OS4yLjAuMTczNDgwNjI1OS42MC4wLjA.&_ga=2.66923502.174841559.1734639641-983296813.1734639641) & [Developer Beta Terms](https://legal.hubspot.com/developerbetaterms?_gl=1*fmuxuh*_ga*NDU4NDIxOTA5LjE3MzQ3ODM3Mjg.*_ga_LXTM6CQ0XK*MTczNDgwNjI1OS4yLjAuMTczNDgwNjI1OS42MC4wLjA.&_ga=2.66923502.174841559.1734639641-983296813.1734639641) for more information.
+> **Note:** This package may be changed in the future based on the HubSpot API changes, since it is currently under development and is subject to change based on testing and feedback. By using this package, you are agreeing to accept any future changes that might occur and understand the risk associated with testing an unstable API. Refer to the [HubSpot Developer Terms](https://legal.hubspot.com/developer-terms) & [Developer Beta Terms](https://legal.hubspot.com/developerbetaterms) for more information.
 
 ## Setup guide
 
-To use the HubSpot Feedback connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
+To use the HubSpot Carts connector, you must have access to the HubSpot API through a HubSpot developer account and a HubSpot App under it. Therefore you need to register for a developer account at HubSpot if you don't have one already.
 
 ### Step 1: Create/Login to a HubSpot Developer Account
 
@@ -30,54 +28,55 @@ If you don't have a HubSpot Developer Account you can sign up to a free account 
 
 Within app developer accounts, you can create developer test accounts to test apps and integrations without affecting any real HubSpot data.
 
-**_These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts._**
+*> **Note:** These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts.
 
 1. Go to Test accounts section from the left sidebar.
 
-<img src="./docs/setup/resources/test-account.png" width="70%">
+![Test Account](/docs/setup/resources/test-account.png)
 
 2. Click on the `Create developer test account` button on the top right corner.
 
-<img src="./docs/setup/resources/create-test-account.png" width="70%">
+<![Test Account](/docs/setup/resources/create-test-account.png)
 
 3. In the pop-up window, provide a name for the test account and click on the `Create` button.
 
-<img src="./docs/setup/resources/create-account.png" width="70%">
+![Test Account](/docs/setup/resources/create-account.png)
 
 4. You will see the newly created test account in the list of test accounts.
 
-<img src="./docs/setup/resources/test-account-portal.png" width="70%">
+![Test Account](/docs/setup/resources/test-account-portal.png)
 
 ### Step 3: Create a HubSpot App
 
 1. Now navigate to the `Apps` section from the left sidebar and click on the `Create app` button on the top right corner.
-<img src="./docs/setup/resources/create-app.png" width="70%">
+
+![Test Account](/docs/setup/resources/create-app.png")
 
 2. Provide a public app name and description for your app.
 
-<img src="./docs/setup/resources/app-name-desc.png" width="70%">
+![Test Account](/docs/setup/resources/app-name-desc.png)
 
 ### Step 4: Setup Authentication
 
 1. Move to the `Auth` tab.
 
-<img src="./docs/setup/resources/config-auth.png" width="70%">
+![Test Account](/docs/setup/resources/config-auth.png)
 
 2. In the `Scopes` section, add the following scopes for your app using the `Add new scopes` button.
    - `crm.objects.carts.read`
    - `crm.objects.carts.write`
 
-<img src="./docs/setup/resources/add-scopes.png" width="70%">
+![Test Account](/docs/setup/resources/add-scopes.png)
 
 3. In the `Redirect URL` section, add the redirect URL for your app. This is the URL where the user will be redirected after the authentication process. You can use localhost for testing purposes. Then hit the `Create App` button.
 
-<img src="./docs/setup/resources/redirect-url.png" width="70%">
+![Test Account](/docs/setup/resources/redirect-url.png)
 
 ### Step 5: Get the Client ID and Client Secret
 
 Navigate to the `Auth` tab and you will see the `Client ID` and `Client Secret` for your app. Make sure to save these values.
 
-<img src="./docs/setup/resources/client-id-secret.png" width="70%">
+![Test Account](/docs/setup/resources/client-id-secret.png)
 
 ### Step 6: Setup Authentication Flow
 
@@ -93,13 +92,9 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src="./docs/setup/resources/hubspot-oauth-consent-screen.png" style="width: 70%;">
+   ![Test Account](/docs/setup/resources/hubspot-oauth-consent-screen.png)
 
 3. A code will be displayed in the browser. Copy the code.
-
-   ```
-   Received code: na1-129d-860c-xxxx-xxxx-xxxxxxxxxxxx
-   ```
 
 4. Run the following curl command. Replace the `<YOUR_CLIENT_ID>`, `<YOUR_REDIRECT_URI`> and `<YOUR_CLIENT_SECRET>` with your specific value. Use the code you received in the above step 3 as the `<CODE>`.
 
