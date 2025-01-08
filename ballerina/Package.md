@@ -155,7 +155,7 @@ import ballerina/oauth2;
         }
     };
 
-    final hscarts:Client baseClient = check new hscarts:Client(config, serviceUrl = "https://api.hubapi.com/crm/v3/objects"); 
+    final hscarts:Client baseClient = check new hscarts:Client(config); 
     ```
 
 2. Create a `Config.toml` file and, configure the obtained credentials in the above steps as follows:
