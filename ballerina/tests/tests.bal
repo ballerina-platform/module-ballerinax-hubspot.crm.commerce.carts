@@ -17,20 +17,24 @@ OAuth2RefreshTokenGrantConfig auth = {
 };
 
 ConnectionConfig config = {auth:auth};
-final Client baseClient = check new Client(config, serviceUrl = "https://api.hubapi.com/crm/v3/objects");
+final Client baseClient = check new Client(config);
 
+//Create a new Cart
 @test:Config {}
 isolated function testCreateCart() {
 
     SimplePublicObjectInputForCreate payload = {
       "properties": {
+        "hs_cart_name": "Optic",
         "hs_external_cart_id": "1234567890",
         "hs_external_status": "pending",
-        "hs_source_store": "Dog Cafe - Italy",
+        "hs_source_store": "XYZ - USA",
         "hs_total_price": "500",
         "hs_currency_code": "USD",
+        "hs_cart_discount": "12",
         "hs_tax": "36.25",
-        "hs_tags": "donuts, bagels"
+        "hs_shipping_cost": "0",
+        "hs_tags": "frames, lenses"
       }
     };
 
@@ -43,8 +47,9 @@ isolated function testCreateCart() {
     }   
 }
 
+//Get all carts
 @test:Config {}
-isolated function testGetAllCarts(){
+isolated function testGetAllCarts() {
 
   CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error  response = baseClient ->/carts;
 
@@ -56,9 +61,9 @@ isolated function testGetAllCarts(){
   } 
 };
 
+//Get Cart by Id
 @test:Config {}
-
-isolated function testGetCartByID() returns error?{
+isolated function testGetCartByID() {
 
   string cartId = "394588289922";
 
@@ -71,8 +76,9 @@ isolated function testGetCartByID() returns error?{
   }
 }
 
+//Update a Cart
 @test:Config {}
-isolated function testUpdateCart() returns error?{
+isolated function testUpdateCart() {
 
   SimplePublicObjectInput payload = {
     "properties": {
@@ -93,8 +99,9 @@ isolated function testUpdateCart() returns error?{
   }
 }
 
+//Create a new Batch
 @test:Config{}
-isolated function testCreateBatch() returns error?{
+isolated function testCreateBatch() {
   BatchInputSimplePublicObjectInputForCreate payload = {
       "inputs": [
         {
@@ -104,7 +111,7 @@ isolated function testCreateBatch() returns error?{
             "hs_currency_code": "USD",
             "hs_tax": "36.25",
             "hs_tags": "donuts, bagels"
-            }
+          }
         }
       ]
     };
@@ -119,8 +126,9 @@ isolated function testCreateBatch() returns error?{
   }
 }
 
+//Read a batch
 @test:Config{}
-isolated function testReadBatch(){
+isolated function testReadBatch() {
 
   BatchReadInputSimplePublicObjectId payload ={
     "inputs": [
@@ -144,9 +152,10 @@ isolated function testReadBatch(){
   }
 }
 
+//Update a Batch
 @test:Config{}
 
-isolated function testUpdateBatch(){
+isolated function testUpdateBatch() {
   BatchInputSimplePublicObjectBatchInput payload ={
     "inputs": [
       {
@@ -173,9 +182,9 @@ isolated function testUpdateBatch(){
   }
 }
 
+//Upsert a Batch 
 @test:Config{}
-
-isolated function testUpsertBatch(){
+isolated function testUpsertBatch() {
 
   BatchInputSimplePublicObjectBatchInputUpsert payload = {
       "inputs": [
@@ -203,8 +212,9 @@ isolated function testUpsertBatch(){
   }
 }
 
+//Serch a cart
 @test:Config{}
-isolated function testSearchCarts(){
+isolated function testSearchCarts() {
   
   PublicObjectSearchRequest payload = {
     "filterGroups": [
@@ -231,8 +241,9 @@ isolated function testSearchCarts(){
   }
 }
 
+//Archive a Batch
 @test:Config{}
-isolated function testArchiveBatch(){
+isolated function testArchiveBatch() {
 
   BatchInputSimplePublicObjectId payload = {
       "inputs": [
@@ -252,8 +263,9 @@ isolated function testArchiveBatch(){
   }
 }
 
+//Delete a cart
 @test:Config{}
-isolated function testDeleteCart(){
+isolated function testDeleteCart() {
 
   string cartId = "394799506036";
 
