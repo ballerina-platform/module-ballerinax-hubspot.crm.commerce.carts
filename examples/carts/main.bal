@@ -1,3 +1,19 @@
+// Copyright (c) 2025, WSO2 LLC. (http://www.wso2.com).
+//
+// WSO2 LLC. licenses this file to you under the Apache License,
+// Version 2.0 (the "License"); you may not use this file except
+// in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 import ballerinax/hubspot.crm.commerce.carts as hscarts;
 import ballerina/oauth2;
 import ballerina/io;
@@ -68,6 +84,6 @@ public function main() returns error? {
 
     //Delete the Cart
     http:Response response = check baseClient->/carts/[cartId].delete();
-    io:println("Cart with ID - ",cartId,"is deleted, HTTP response status code : ",response.statusCode);
+    io:println("Cart with ID - ",cartId," is deleted, HTTP response status code : ",response.statusCode);
 }
     
