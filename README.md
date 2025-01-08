@@ -34,50 +34,50 @@ Within app developer accounts, you can create developer test accounts to test ap
 
 1. Go to Test accounts section from the left sidebar.
 
-<img src="../docs/setup/resources/test-account.png" width="70%">
+<img src="./docs/setup/resources/test-account.png" width="70%">
 
 2. Click on the `Create developer test account` button on the top right corner.
 
-<img src="../docs/setup/resources/create-test-account.png" width="70%">
+<img src="./docs/setup/resources/create-test-account.png" width="70%">
 
 3. In the pop-up window, provide a name for the test account and click on the `Create` button.
 
-<img src="../docs/setup/resources/create-account.png" width="70%">
+<img src="./docs/setup/resources/create-account.png" width="70%">
 
 4. You will see the newly created test account in the list of test accounts.
 
-<img src="../docs/setup/resources/test-account-portal.png" width="70%">
+<img src="./docs/setup/resources/test-account-portal.png" width="70%">
 
 ### Step 3: Create a HubSpot App
 
 1. Now navigate to the `Apps` section from the left sidebar and click on the `Create app` button on the top right corner.
-<img src="../docs/setup/resources/create-app.png" width="70%">
+<img src="./docs/setup/resources/create-app.png" width="70%">
 
 2. Provide a public app name and description for your app.
 
-<img src="../docs/setup/resources/app-name-desc.png" width="70%">
+<img src="./docs/setup/resources/app-name-desc.png" width="70%">
 
 ### Step 4: Setup Authentication
 
 1. Move to the `Auth` tab.
 
-<img src="../docs/setup/resources/config-auth.png" width="70%">
+<img src="./docs/setup/resources/config-auth.png" width="70%">
 
 2. In the `Scopes` section, add the following scopes for your app using the `Add new scopes` button.
    - `crm.objects.carts.read`
    - `crm.objects.carts.write`
 
-<img src="../docs/setup/resources/add-scopes.png" width="70%">
+<img src="./docs/setup/resources/add-scopes.png" width="70%">
 
 3. In the `Redirect URL` section, add the redirect URL for your app. This is the URL where the user will be redirected after the authentication process. You can use localhost for testing purposes. Then hit the `Create App` button.
 
-<img src="../docs/setup/resources/redirect-url.png" width="70%">
+<img src="./docs/setup/resources/redirect-url.png" width="70%">
 
 ### Step 5: Get the Client ID and Client Secret
 
 Navigate to the `Auth` tab and you will see the `Client ID` and `Client Secret` for your app. Make sure to save these values.
 
-<img src="../docs/setup/resources/client-id-secret.png" width="70%">
+<img src="./docs/setup/resources/client-id-secret.png" width="70%">
 
 ### Step 6: Setup Authentication Flow
 
@@ -93,7 +93,7 @@ Before proceeding with the Quickstart, ensure you have obtained the Access Token
 
 2. Paste it in the browser and select your developer test account to intall the app when prompted.
 
-   <img src="../docs/setup/resources/hubspot-oauth-consent-screen.png" style="width: 70%;">
+   <img src="./docs/setup/resources/hubspot-oauth-consent-screen.png" style="width: 70%;">
 
 3. A code will be displayed in the browser. Copy the code.
 
