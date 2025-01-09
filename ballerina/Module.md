@@ -2,7 +2,7 @@
 
 [HubSpot](https://www.hubspot.com) is an AI-powered customer relationship management (CRM) platform. 
 
-The `ballerinax/hubspot.crm.commerce.carts` package offers APIs to connect and interact with [HubSpot CRM Commerce Carts API](https://developers.hubspot.com/docs/reference/api/crm/commerce/carts) endpoints, specifically based on [OpenAPI specification for HubSpot CRM Commerce Carts API v3](https://github.com/HubSpot/HubSpot-public-api-spec-collection/blob/main/PublicApiSpecs/CRM/Carts/Rollouts/424/v3/carts.json).
+The `ballerinax/hubspot.crm.commerce.carts` package offers APIs to connect and interact with [HubSpot CRM Commerce Carts API](https://developers.hubspot.com/docs/reference/api/crm/commerce/carts) endpoints, specifically based on [HubSpot REST API](https://developers.hubspot.com/docs/reference/api).
 
 > **Note:** This package may be changed in the future based on the HubSpot API changes, since it is currently under development and is subject to change based on testing and feedback. By using this package, you are agreeing to accept any future changes that might occur and understand the risk associated with testing an unstable API. Refer to the [HubSpot Developer Terms](https://legal.hubspot.com/developer-terms) & [Developer Beta Terms](https://legal.hubspot.com/developerbetaterms) for more information.
 
@@ -16,9 +16,9 @@ If you have an account already, go to the [HubSpot developer portal](https://app
 
 If you don't have a HubSpot Developer Account you can sign up to a free account [here](https://developers.hubspot.com/get-started)
 
-### Step 2 (Optional): Create a [Developer Test Account](https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts) under your account
+### Step 2 (Optional): Create a Developer Test Account
 
-Within app developer accounts, you can create developer test accounts to test apps and integrations without affecting any real HubSpot data.
+Within app developer accounts, you can create a [developer test account]((https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts) under your account to test apps and integrations without affecting any real HubSpot data.
 
 > **Note:** These accounts are only for development and testing purposes. In production you should not use Developer Test Accounts.
 
