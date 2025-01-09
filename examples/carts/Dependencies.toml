@@ -303,8 +303,8 @@ modules = [
 ]
 
 [[package]]
-org = "wso2"
-name = "cart_creation"
+org = "induwarag"
+name = "carts"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
@@ -314,6 +314,6 @@ dependencies = [
 	{org = "ballerinax", name = "hubspot.crm.commerce.carts"}
 ]
 modules = [
-	{org = "wso2", packageName = "carts", moduleName = "carts"}
+	{org = "induwarag", packageName = "carts", moduleName = "carts"}
 ]
 
