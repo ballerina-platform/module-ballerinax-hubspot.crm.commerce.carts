@@ -32,7 +32,7 @@ hscarts:ConnectionConfig config = {
         credentialBearer: oauth2:POST_BODY_BEARER
     }
 };
-final hscarts:Client baseClient = check new hscarts:Client(config);
+final hscarts:Client hubspot = check new (config);
 
 public function main() returns error? {
 

@@ -202,7 +202,6 @@ isolated function testSearchCarts() returns error? {
 
     CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check baseClient->/carts/search.post(payload);
     test:assertTrue(response.total != 0);
-
 }
 
 //Archive a Batch

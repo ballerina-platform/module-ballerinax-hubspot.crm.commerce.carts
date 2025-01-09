@@ -7,7 +7,3 @@ distribution = "2201.10.3"
 [build-options]
 observabilityIncluded = true
 
-[[dependency]]
-org = "ballerinax"
-name = "hubspot.crm.commerce.carts"
-version="1.0.0"
