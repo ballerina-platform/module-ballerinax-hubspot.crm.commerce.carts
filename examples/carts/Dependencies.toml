@@ -314,6 +314,6 @@ dependencies = [
 	{org = "ballerinax", name = "hubspot.crm.commerce.carts"}
 ]
 modules = [
-	{org = "wso2", packageName = "cart_creation", moduleName = "cart_creation"}
+	{org = "wso2", packageName = "carts", moduleName = "carts"}
 ]
 
