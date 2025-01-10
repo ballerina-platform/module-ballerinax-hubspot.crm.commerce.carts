@@ -37,7 +37,7 @@ final Client hubspot = check new (config);
 isolated function testCreateCart() returns error? {
 
     SimplePublicObjectInputForCreate payload = {
-        "properties": {
+        properties: {
             "hs_cart_name": "Optic",
             "hs_external_cart_id": "1234567890",
             "hs_external_status": "pending",
@@ -80,7 +80,7 @@ isolated function testGetCartByID() returns error? {
 isolated function testUpdateCart() returns error? {
 
     SimplePublicObjectInput payload = {
-        "properties": {
+        properties: {
             "hs_tax": "48.75"
         }
     };
@@ -96,9 +96,9 @@ isolated function testUpdateCart() returns error? {
 @test:Config {}
 isolated function testCreateBatch() returns error? {
     BatchInputSimplePublicObjectInputForCreate payload = {
-        "inputs": [
+        inputs: [
             {
-                "properties": {
+                properties: {
                     "hs_source_store": "ABC Cafe - USA",
                     "hs_total_price": "500",
                     "hs_currency_code": "USD",
@@ -118,12 +118,12 @@ isolated function testCreateBatch() returns error? {
 isolated function testReadBatch() returns error? {
 
     BatchReadInputSimplePublicObjectId payload = {
-        "inputs": [
+        inputs: [
             {
                 "id": "394954883139"
             }
         ],
-        "properties": [
+        properties: [
             "hs_total_price",
             "hs_currency_code"
         ]
@@ -138,10 +138,10 @@ isolated function testReadBatch() returns error? {
 
 isolated function testUpdateBatch() returns error? {
     BatchInputSimplePublicObjectBatchInput payload = {
-        "inputs": [
+        inputs: [
             {
-                "id": "394954883139",
-                "properties": {
+                id: "394954883139",
+                properties: {
                     "hs_source_store": "Cat Cafe - Portland",
                     "hs_total_price": "543",
                     "hs_currency_code": "GBR"
@@ -162,7 +162,7 @@ isolated function testUpdateBatch() returns error? {
 isolated function testUpsertBatch() returns error? {
 
     BatchInputSimplePublicObjectBatchInputUpsert payload = {
-        "inputs": [
+        inputs: [
             {
                 "idProperty": "custom_hs_cart_url",
                 "id": "https://app.hubspot.com/contacts/48569051/record/0-142/3395263845436",
@@ -186,9 +186,9 @@ isolated function testUpsertBatch() returns error? {
 isolated function testSearchCarts() returns error? {
 
     PublicObjectSearchRequest payload = {
-        "filterGroups": [
+        filterGroups: [
             {
-                "filters": [
+                filters: [
                     {
                         "propertyName": "hs_source_store",
                         "value": "Dog Cafe - Italy",
@@ -197,7 +197,7 @@ isolated function testSearchCarts() returns error? {
                 ]
             }
         ],
-        "properties": ["hs_external_cart_id", "hs_source_store"]
+        properties: ["hs_external_cart_id", "hs_source_store"]
     };
 
     CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check hubspot->/carts/search.post(payload);
@@ -209,9 +209,9 @@ isolated function testSearchCarts() returns error? {
 isolated function testArchiveBatch() returns error? {
 
     BatchInputSimplePublicObjectId payload = {
-        "inputs": [
+        inputs: [
             {
-                "id": "395023608593"
+                id: "395023608593"
             }
         ]
     };
