@@ -194,6 +194,10 @@ public function main() returns error? {
 
 The `HubSpot CRM Commerce Carts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/), covering the following use cases:
 
+1. [Single Cart Management](./carts/) - Create, retrieve, update, search, and delete a single cart for a customer.
+
+2. [Batch of Carts Management](./batch-of-carts/) - Create, retrieve, update, and archive a batch of carts for customers.
+
 ## Build from the source
 
 ### Setting up the prerequisites
