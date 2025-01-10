@@ -1,14 +1,23 @@
 # Examples
 
-The `ballerinax/hubspot.crm.commerce.carts` connector provides practical examples illustrating usage in various scenarios.
+The `ballerinax/hubspot.crm.commerce.carts` connector provides practical examples illustrating usage in various scenarios. Explore these examples, covering use cases:
 
-[//]: # (TODO: Add examples)
-1. 
-2. 
+1. [Single Cart Management](./carts/) - Create, retrieve, update, search, and delete a single cart for a customer.
+
+2. [Batch of Carts Management](./batch-of-carts/) - Create, retrieve, update, and archive a batch of carts for customers.
+
 
 ## Prerequisites
 
-[//]: # (TODO: Add prerequisites)
+1. Generate Hubspot credentials to authenticate the connector as described in the [Setup guide](../ballerina/Package.md#setup-guide).
+
+2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
+
+    ```toml
+    clientId = "<client-id>"
+    clientSecret = "<client-secret>"
+    refreshToken = "<refresh-token>"
+    ``` 
 
 ## Running an example
 
