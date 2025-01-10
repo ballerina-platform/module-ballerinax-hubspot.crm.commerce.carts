@@ -2,9 +2,9 @@
 
 The `ballerinax/hubspot.crm.commerce.carts` connector provides practical examples illustrating usage in various scenarios. Explore these examples, covering use cases:
 
-1. [Single Cart Management](./carts/) - Create, retrieve, update, search, and delete a single cart for a customer.
+1. [Single Cart Management](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/carts/) - Create, retrieve, update, search, and delete a single cart for a customer.
 
-2. [Batch of Carts Management](./batch-of-carts/) - Create, retrieve, update, and archive a batch of carts for customers.
+2. [Batch of Carts Management](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/batch-of-carts/) - Create, retrieve, update, and archive a batch of carts for customers.
 
 
 ## Prerequisites
