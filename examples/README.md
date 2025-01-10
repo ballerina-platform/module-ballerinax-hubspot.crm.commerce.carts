@@ -9,7 +9,7 @@ The `ballerinax/hubspot.crm.commerce.carts` connector provides practical example
 
 ## Prerequisites
 
-1. Generate Hubspot credentials to authenticate the connector as described in the [Setup guide](../ballerina/Package.md#setup-guide).
+1. Generate Hubspot credentials to authenticate the connector as described in the [Setup guide](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/ballerina/Package.md#setup-guide).
 
 2. For each example, create a `Config.toml` file the related configuration. Here's an example of how your `Config.toml` file should look:
 
