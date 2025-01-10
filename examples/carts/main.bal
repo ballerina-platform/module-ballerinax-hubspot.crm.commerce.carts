@@ -47,12 +47,12 @@ public function main() returns error? {
         }
     };
     hscarts:SimplePublicObject newCart = check hubspot->/carts.post(payload = cartPayload);
-    io:println("Created Cart : ", newCart);
+    io:println("Created Cart : ", newCart,"\n");
 
     //Get a Cart by its' id
     string cartId = newCart.id;
     hscarts:SimplePublicObjectWithAssociations cartResponse = check hubspot->/carts/[cartId]();
-    io:println("Cart Details for Cart ID - ", cartId, " : ", cartResponse);
+    io:println("Cart Details for Cart ID - ", cartId, " : ", cartResponse,"\n");
 
     //Update the Cart
     hscarts:SimplePublicObjectInput cartUpdateDetails = {
@@ -61,7 +61,7 @@ public function main() returns error? {
         }
     };
     hscarts:SimplePublicObject updatedCart = check hubspot->/carts/[cartId].patch(payload = cartUpdateDetails);
-    io:println("Updated Cart : ", updatedCart);
+    io:println("Updated Cart : ", updatedCart,"\n");
 
     //Search Carts
     hscarts:PublicObjectSearchRequest cartSearchPayload = {
@@ -80,9 +80,9 @@ public function main() returns error? {
     };
 
     hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging serchResponse = check hubspot->/carts/search.post(cartSearchPayload);
-    io:println("Search Results : ", serchResponse.results);
+    io:println("Search Results : ", serchResponse.results,"\n");
 
     //Delete the Cart
     http:Response response = check hubspot->/carts/[cartId].delete();
-    io:println("Cart with ID - ", cartId, " is deleted, HTTP response status code : ", response.statusCode);
+    io:println("Cart with ID - ", cartId, " is deleted, HTTP response status code : ", response.statusCode,"\n");
 }
