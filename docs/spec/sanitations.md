@@ -1,4 +1,4 @@
-_Author_:  Induwara Gayashan \
+_Author_:  @InduwaraGayashan001 \
 _Created_: 2024/12/18 \
 _Updated_: 2025/01/10 \
 _Edition_: Swan Lake
