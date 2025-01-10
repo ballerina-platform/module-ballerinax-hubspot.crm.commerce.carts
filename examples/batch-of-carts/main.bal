@@ -51,7 +51,7 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject newBatch = check baseClient->/carts/batch/create.post(batchCreatePayload);
+    hscarts:BatchResponseSimplePublicObject newBatch = check hubspot->/carts/batch/create.post(batchCreatePayload);
     io:println("Created Batch : ", newBatch);
 
     //Read a batch of carts by internal Id 
@@ -68,7 +68,7 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors batchResponse = check baseClient->/carts/batch/read.post(batchReadPayload);
+    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors batchResponse = check hubspot->/carts/batch/read.post(batchReadPayload);
     io:println("Fetched Batch Details : ", batchResponse);
 
     //Update a Batch of Carts
@@ -84,7 +84,7 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors updatedResponse = check baseClient->/carts/batch/update.post(batchUpdatePayload);
+    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors updatedResponse = check hubspot->/carts/batch/update.post(batchUpdatePayload);
     io:println("Updated Batch : ", updatedResponse);
 
     //Archive a Batch of Carts by ID
@@ -96,7 +96,7 @@ public function main() returns error? {
         ]
     };
 
-    http:Response ArchiveHttpResponse = check baseClient->/carts/batch/archive.post(batchArchivePayload);
+    http:Response ArchiveHttpResponse = check hubspot->/carts/batch/archive.post(batchArchivePayload);
     io:println("Batch with ID - ", batchId, " is archived, HTTP response status code : ", ArchiveHttpResponse.statusCode);
 
 }

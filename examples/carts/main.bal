@@ -46,12 +46,12 @@ public function main() returns error? {
             "hs_tags": "donuts, bagels"
         }
     };
-    hscarts:SimplePublicObject newCart = check baseClient->/carts.post(payload = cartPayload);
+    hscarts:SimplePublicObject newCart = check hubspot->/carts.post(payload = cartPayload);
     io:println("Created Cart : ", newCart);
 
     //Get a Cart by its' id
     string cartId = newCart.id;
-    hscarts:SimplePublicObjectWithAssociations cartResponse = check baseClient->/carts/[cartId]();
+    hscarts:SimplePublicObjectWithAssociations cartResponse = check hubspot->/carts/[cartId]();
     io:println("Cart Details for Cart ID - ", cartId, " : ", cartResponse);
 
     //Update the Cart
@@ -60,7 +60,7 @@ public function main() returns error? {
             "hs_tax": "48.75"
         }
     };
-    hscarts:SimplePublicObject updatedCart = check baseClient->/carts/[cartId].patch(payload = cartUpdateDetails);
+    hscarts:SimplePublicObject updatedCart = check hubspot->/carts/[cartId].patch(payload = cartUpdateDetails);
     io:println("Updated Cart : ", updatedCart);
 
     //Search Carts
@@ -79,10 +79,10 @@ public function main() returns error? {
         "properties": ["hs_external_cart_id", "hs_source_store"]
     };
 
-    hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging serchResponse = check baseClient->/carts/search.post(cartSearchPayload);
+    hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging serchResponse = check hubspot->/carts/search.post(cartSearchPayload);
     io:println("Search Results : ", serchResponse.results);
 
     //Delete the Cart
-    http:Response response = check baseClient->/carts/[cartId].delete();
+    http:Response response = check hubspot->/carts/[cartId].delete();
     io:println("Cart with ID - ", cartId, " is deleted, HTTP response status code : ", response.statusCode);
 }

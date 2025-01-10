@@ -30,7 +30,7 @@ OAuth2RefreshTokenGrantConfig auth = {
 };
 
 ConnectionConfig config = {auth: auth};
-final Client baseClient = check new (config);
+final Client hubspot = check new (config);
 
 //Create a new Cart
 @test:Config {}
@@ -51,7 +51,7 @@ isolated function testCreateCart() returns error? {
         }
     };
 
-    SimplePublicObject response = check baseClient->/carts.post(payload = payload);
+    SimplePublicObject response = check hubspot->/carts.post(payload = payload);
     test:assertTrue(response?.id !is "");
 
 }
@@ -60,7 +60,7 @@ isolated function testCreateCart() returns error? {
 @test:Config {}
 isolated function testGetAllCarts() returns error? {
 
-    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check baseClient->/carts;
+    CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspot->/carts;
     test:assertTrue(response.results.length() > 0);
 
 };
@@ -71,7 +71,7 @@ isolated function testGetCartByID() returns error? {
 
     string cartId = "394588289922";
 
-    SimplePublicObjectWithAssociations response = check baseClient->/carts/[cartId]();
+    SimplePublicObjectWithAssociations response = check hubspot->/carts/[cartId]();
     test:assertEquals(response?.id, cartId);
 }
 
@@ -87,7 +87,7 @@ isolated function testUpdateCart() returns error? {
 
     string cartId = "394588289922";
 
-    SimplePublicObject response = check baseClient->/carts/[cartId].patch(payload = payload);
+    SimplePublicObject response = check hubspot->/carts/[cartId].patch(payload = payload);
     test:assertEquals(response?.id, cartId);
     test:assertEquals(response?.properties["hs_tax"], payload.properties["hs_tax"]);
 }
@@ -109,7 +109,7 @@ isolated function testCreateBatch() returns error? {
         ]
     };
 
-    BatchResponseSimplePublicObject response = check baseClient->/carts/batch/create.post(payload);
+    BatchResponseSimplePublicObject response = check hubspot->/carts/batch/create.post(payload);
     test:assertTrue(response.results[0]["id"] !is "");
 }
 
@@ -129,7 +129,7 @@ isolated function testReadBatch() returns error? {
         ]
     };
 
-    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check baseClient->/carts/batch/read.post(payload);
+    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspot->/carts/batch/read.post(payload);
     test:assertEquals(response.results[0]["id"], payload.inputs[0]["id"]);
 }
 
@@ -150,7 +150,7 @@ isolated function testUpdateBatch() returns error? {
         ]
     };
 
-    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check baseClient->/carts/batch/update.post(payload);
+    BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspot->/carts/batch/update.post(payload);
     test:assertEquals(response.results[0]["id"], payload.inputs[0]["id"]);
     test:assertEquals(response.results[0]["properties"]["hs_source_store"], payload.inputs[0]["properties"]["hs_source_store"]);
     test:assertEquals(response.results[0]["properties"]["hs_total_price"], payload.inputs[0]["properties"]["hs_total_price"]);
@@ -175,7 +175,7 @@ isolated function testUpsertBatch() returns error? {
         ]
     };
 
-    BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response = check baseClient->/carts/batch/upsert.post(payload);
+    BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response = check hubspot->/carts/batch/upsert.post(payload);
     test:assertEquals(response.results[0]["properties"]["hs_source_store"], payload.inputs[0]["properties"]["hs_source_store"]);
     test:assertEquals(response.results[0]["properties"]["hs_total_price"], payload.inputs[0]["properties"]["hs_total_price"]);
     test:assertEquals(response.results[0]["properties"]["hs_currency_code"], payload.inputs[0]["properties"]["hs_currency_code"]);
@@ -200,7 +200,7 @@ isolated function testSearchCarts() returns error? {
         "properties": ["hs_external_cart_id", "hs_source_store"]
     };
 
-    CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check baseClient->/carts/search.post(payload);
+    CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check hubspot->/carts/search.post(payload);
     test:assertTrue(response.total != 0);
 }
 
@@ -216,7 +216,7 @@ isolated function testArchiveBatch() returns error? {
         ]
     };
 
-    http:Response response = check baseClient->/carts/batch/archive.post(payload);
+    http:Response response = check hubspot->/carts/batch/archive.post(payload);
     test:assertTrue(response.statusCode is 204);
 }
 
@@ -226,7 +226,7 @@ isolated function testDeleteCart() returns error? {
 
     string cartId = "394799506036";
 
-    http:Response response = check baseClient->/carts/[cartId].delete();
+    http:Response response = check hubspot->/carts/[cartId].delete();
     test:assertTrue(response.statusCode is 204);
 
 }
