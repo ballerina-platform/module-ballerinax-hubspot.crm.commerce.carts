@@ -38,7 +38,7 @@ public function main() returns error? {
 
     //Create a new Cart
     hscarts:SimplePublicObjectInputForCreate cartPayload = {
-        "properties": {
+        properties: {
             "hs_source_store": "Dog Cafe - Italy",
             "hs_total_price": "500",
             "hs_currency_code": "USD",
@@ -56,7 +56,7 @@ public function main() returns error? {
 
     //Update the Cart
     hscarts:SimplePublicObjectInput cartUpdateDetails = {
-        "properties": {
+        properties: {
             "hs_tax": "48.75"
         }
     };
@@ -65,18 +65,18 @@ public function main() returns error? {
 
     //Search Carts
     hscarts:PublicObjectSearchRequest cartSearchPayload = {
-        "filterGroups": [
+        filterGroups: [
             {
-                "filters": [
+                filters: [
                     {
-                        "propertyName": "hs_source_store",
-                        "value": "Dog Cafe - Italy",
-                        "operator": "EQ"
+                        propertyName: "hs_source_store",
+                        value: "Dog Cafe - Italy",
+                        operator: "EQ"
                     }
                 ]
             }
         ],
-        "properties": ["hs_external_cart_id", "hs_source_store"]
+        properties: ["hs_external_cart_id", "hs_source_store"]
     };
 
     hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging serchResponse = check hubspot->/carts/search.post(cartSearchPayload);
