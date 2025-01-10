@@ -38,9 +38,9 @@ public function main() returns error? {
 
     //Create a new batch of carts
     hscarts:BatchInputSimplePublicObjectInputForCreate batchCreatePayload = {
-        "inputs": [
+        inputs: [
             {
-                "properties": {
+                properties: {
                     "hs_source_store": "ABC Cafe - USA",
                     "hs_total_price": "500",
                     "hs_currency_code": "USD",
@@ -57,12 +57,12 @@ public function main() returns error? {
     //Read a batch of carts by internal Id 
     string batchId = newBatch.results[0].id;
     hscarts:BatchReadInputSimplePublicObjectId batchReadPayload = {
-        "inputs": [
+        inputs: [
             {
-                "id": batchId
+                id: batchId
             }
         ],
-        "properties": [
+        properties: [
             "hs_total_price",
             "hs_currency_code"
         ]
@@ -73,10 +73,10 @@ public function main() returns error? {
 
     //Update a Batch of Carts
     hscarts:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
-        "inputs": [
+        inputs: [
             {
-                "id": batchId,
-                "properties": {
+                id: batchId,
+                properties: {
                     "hs_total_price": "543",
                     "hs_tax": "79.25"
                 }
@@ -89,9 +89,9 @@ public function main() returns error? {
 
     //Archive a Batch of Carts by ID
     hscarts:BatchInputSimplePublicObjectId batchArchivePayload = {
-        "inputs": [
+        inputs: [
             {
-                "id": batchId
+                id: batchId
             }
         ]
     };
