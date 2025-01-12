@@ -312,46 +312,33 @@ service on new http:Listener(9090) {
 
     resource function post carts/search(@http:Payload PublicObjectSearchRequest payload) returns CollectionResponseWithTotalSimplePublicObjectForwardPaging {
         return {
-            "total": 3,
+            "total": 2,
             "results": [
                 {
-                    "createdAt": "2025-01-10T13:30:50.588Z",
+                    "createdAt": "2025-01-03T09:44:44.245Z",
                     "archived": false,
-                    "id": "396061406496",
+                    "id": "394586508127",
                     "properties": {
-                        "hs_lastmodifieddate": "2025-01-10T13:30:51.796Z",
-                        "hs_external_cart_id": null,
-                        "hs_createdate": "2025-01-10T13:30:50.588Z",
-                        "hs_source_store": "Dog Cafe",
-                        "hs_object_id": "396061406496"
+                        "hs_lastmodifieddate": "2025-01-03T09:44:44.835Z",
+                        "hs_total_price": "600",
+                        "hs_createdate": "2025-01-03T09:44:44.245Z",
+                        "hs_source_store": "ABC Cafe",
+                        "hs_object_id": "394586508127"
                     },
-                    "updatedAt": "2025-01-10T13:30:51.796Z"
+                    "updatedAt": "2025-01-03T09:44:44.835Z"
                 },
                 {
-                    "createdAt": "2025-01-10T13:31:06.083Z",
+                    "createdAt": "2025-01-03T09:47:16.663Z",
                     "archived": false,
-                    "id": "396059581456",
+                    "id": "394588289922",
                     "properties": {
-                        "hs_lastmodifieddate": "2025-01-10T13:31:07.159Z",
-                        "hs_external_cart_id": null,
-                        "hs_createdate": "2025-01-10T13:31:06.083Z",
-                        "hs_source_store": "Dog Cafe",
-                        "hs_object_id": "396059581456"
+                        "hs_lastmodifieddate": "2025-01-04T14:30:17.034Z",
+                        "hs_total_price": "400",
+                        "hs_createdate": "2025-01-03T09:47:16.663Z",
+                        "hs_source_store": "XYZ Cafe",
+                        "hs_object_id": "394588289922"
                     },
-                    "updatedAt": "2025-01-10T13:31:07.159Z"
-                },
-                {
-                    "createdAt": "2025-01-12T03:34:11.942Z",
-                    "archived": false,
-                    "id": "396479728760",
-                    "properties": {
-                        "hs_lastmodifieddate": "2025-01-12T03:34:12.609Z",
-                        "hs_external_cart_id": null,
-                        "hs_createdate": "2025-01-12T03:34:11.942Z",
-                        "hs_source_store": "Dog Cafe",
-                        "hs_object_id": "396479728760"
-                    },
-                    "updatedAt": "2025-01-12T03:34:12.609Z"
+                    "updatedAt": "2025-01-04T14:30:17.034Z"
                 }
             ]
         };
@@ -365,13 +352,11 @@ service on new http:Listener(9090) {
             response.statusCode = http:STATUS_BAD_REQUEST;
         }
         return response;
-
     }
 
     resource function delete carts/[string cartId]() returns http:Response {
         http:Response response = new;
         response.statusCode = http:STATUS_NO_CONTENT;
         return response;
-
     }
 };
