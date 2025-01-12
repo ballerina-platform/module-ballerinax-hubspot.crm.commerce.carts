@@ -69,14 +69,17 @@ public function main() returns error? {
             {
                 filters: [
                     {
-                        propertyName: "hs_source_store",
-                        value: "Dog Cafe - Italy",
+                        propertyName: "hs_tags",
+                        value: "donuts, bagels",
                         operator: "EQ"
                     }
                 ]
             }
         ],
-        properties: ["hs_external_cart_id", "hs_source_store"]
+        properties: [
+            "hs_source_store",
+            "hs_total_price"
+        ]
     };
 
     hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging serchResponse = check hubspot->/carts/search.post(cartSearchPayload);

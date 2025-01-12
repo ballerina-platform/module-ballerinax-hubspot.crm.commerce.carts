@@ -67,23 +67,31 @@ public function main() returns error? {
                 }
             }
         ]
-
     };
 
     hscarts:BatchResponseSimplePublicObject newBatch = check hubspot->/carts/batch/create.post(batchCreatePayload);
     io:println("Created Batch : ", newBatch, "\n");
 
     //Read a batch of carts by internal Id 
-    string batchId = newBatch.results[0].id;
+    string cartId1 = newBatch.results[0].id;
+    string cartId2 = newBatch.results[1].id;
+    string cartId3 = newBatch.results[2].id;
     hscarts:BatchReadInputSimplePublicObjectId batchReadPayload = {
         inputs: [
             {
-                id: batchId
+                id: cartId1
+            },
+            {
+                id: cartId2
+            },
+            {
+                id: cartId3
             }
         ],
         properties: [
+            "hs_source_store",
             "hs_total_price",
-            "hs_currency_code"
+            "hs_tags"
         ]
     };
 
@@ -94,10 +102,24 @@ public function main() returns error? {
     hscarts:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
         inputs: [
             {
-                id: batchId,
+                id: cartId1,
                 properties: {
-                    "hs_total_price": "543",
-                    "hs_tax": "79.25"
+                    "hs_total_price": "450",
+                    "hs_cart_discount": "10"
+                }
+            },
+            {
+                id: cartId2,
+                properties: {
+                    "hs_total_price": "370",
+                    "hs_cart_discount": "10"
+                }
+            },
+            {
+                id: cartId3,
+                properties: {
+                    "hs_total_price": "180",
+                    "hs_cart_discount": "10"
                 }
             }
         ]
@@ -110,12 +132,17 @@ public function main() returns error? {
     hscarts:BatchInputSimplePublicObjectId batchArchivePayload = {
         inputs: [
             {
-                id: batchId
+                id: cartId1
+            },
+            {
+                id: cartId2
+            },
+            {
+                id: cartId3
             }
         ]
     };
 
     http:Response ArchiveHttpResponse = check hubspot->/carts/batch/archive.post(batchArchivePayload);
-    io:println("Batch with ID - ", batchId, " is archived, HTTP response status code : ", ArchiveHttpResponse.statusCode, "\n");
-
+    io:println("Carts with IDs ", cartId1, ", ", cartId2, " and ", cartId3, " are archived. HTTP response status code : ", ArchiveHttpResponse.statusCode, "\n");
 }
