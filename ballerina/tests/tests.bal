@@ -14,8 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//import ballerina/http;
-
 import ballerina/http;
 import ballerina/oauth2;
 import ballerina/os;
@@ -63,29 +61,23 @@ isolated function testCreateCart() returns error? {
             "hs_currency_code": "USD",
             "hs_cart_discount": "12",
             "hs_tax": "36.25",
-            "hs_shipping_cost": "0",
             "hs_tags": "frames, lenses"
         }
     };
 
     SimplePublicObject response = check hubspot->/carts.post(payload = payload);
     test:assertTrue(response?.id !is "");
-
 }
 
 //Get all carts
 @test:Config {
     dependsOn: [testCreateCart],
-    groups: [
-        "live_tests",
-        "mock_tests"
-    ]
+    groups: ["live_tests", "mock_tests"]
 }
 isolated function testGetAllCarts() returns error? {
 
     CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspot->/carts;
     test:assertTrue(response?.results.length() > 0);
-
 };
 
 //Get Cart by Id
@@ -207,7 +199,6 @@ isolated function testUpdateBatch() returns error? {
 
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspot->/carts/batch/update.post(payload);
     test:assertTrue(response?.results.length() > 0);
-
 }
 
 //Upsert a Batch 
@@ -260,14 +251,17 @@ isolated function testSearchCarts() returns error? {
             {
                 filters: [
                     {
-                        "propertyName": "hs_source_store",
-                        "value": "Dog Cafe",
+                        "propertyName": "hs_tags",
+                        "value": "donuts, bagels",
                         "operator": "EQ"
                     }
                 ]
             }
         ],
-        properties: ["hs_external_cart_id", "hs_source_store"]
+        properties: [
+            "hs_source_store",
+            "hs_total_price"
+        ]
     };
 
     CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check hubspot->/carts/search.post(payload);
