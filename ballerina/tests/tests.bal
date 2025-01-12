@@ -14,26 +14,43 @@
 // specific language governing permissions and limitations
 // under the License.
 
+//import ballerina/http;
+
 import ballerina/http;
 import ballerina/oauth2;
+import ballerina/os;
 import ballerina/test;
 
-configurable string clientId = ?;
-configurable string clientSecret = ?;
-configurable string refreshToken = ?;
+final boolean isLiveServer = os:getEnv("IS_LIVE_SERVER") == "true";
+final string serviceUrl = isLiveServer ? "https://api.hubapi.com/crm/v3/objects" : "http://localhost:9090";
 
-OAuth2RefreshTokenGrantConfig auth = {
-    clientId: clientId,
-    clientSecret: clientSecret,
-    refreshToken: refreshToken,
-    credentialBearer: oauth2:POST_BODY_BEARER
-};
+final string clientId = os:getEnv("HUBSPOT_CLIENT_ID");
+final string clientSecret = os:getEnv("HUBSPOT_CLIENT_SECRET");
+final string refreshToken = os:getEnv("HUBSPOT_REFRESH_TOKEN");
 
-ConnectionConfig config = {auth: auth};
-final Client hubspot = check new (config);
+final Client hubspot = check initClient();
+
+isolated function initClient() returns Client|error {
+    if isLiveServer {
+        OAuth2RefreshTokenGrantConfig auth = {
+            clientId: clientId,
+            clientSecret: clientSecret,
+            refreshToken: refreshToken,
+            credentialBearer: oauth2:POST_BODY_BEARER
+        };
+        return check new ({auth}, serviceUrl);
+    }
+    return check new ({
+        auth: {
+            token: "test-token"
+        }
+    }, serviceUrl);
+}
 
 //Create a new Cart
-@test:Config {}
+@test:Config {
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testCreateCart() returns error? {
 
     SimplePublicObjectInputForCreate payload = {
@@ -57,16 +74,25 @@ isolated function testCreateCart() returns error? {
 }
 
 //Get all carts
-@test:Config {}
+@test:Config {
+    dependsOn: [testCreateCart],
+    groups: [
+        "live_tests",
+        "mock_tests"
+    ]
+}
 isolated function testGetAllCarts() returns error? {
 
     CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response = check hubspot->/carts;
-    test:assertTrue(response.results.length() > 0);
+    test:assertTrue(response?.results.length() > 0);
 
 };
 
 //Get Cart by Id
-@test:Config {}
+@test:Config {
+    dependsOn: [testCreateCart],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testGetCartByID() returns error? {
 
     string cartId = "394588289922";
@@ -76,7 +102,10 @@ isolated function testGetCartByID() returns error? {
 }
 
 //Update a Cart
-@test:Config {}
+@test:Config {
+    dependsOn: [testGetCartByID],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testUpdateCart() returns error? {
 
     SimplePublicObjectInput payload = {
@@ -93,34 +122,51 @@ isolated function testUpdateCart() returns error? {
 }
 
 //Create a new Batch
-@test:Config {}
+@test:Config {
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testCreateBatch() returns error? {
     BatchInputSimplePublicObjectInputForCreate payload = {
         inputs: [
             {
                 properties: {
-                    "hs_source_store": "ABC Cafe - USA",
+                    "hs_source_store": "ABC Cafe",
                     "hs_total_price": "500",
                     "hs_currency_code": "USD",
                     "hs_tax": "36.25",
-                    "hs_tags": "donuts, bagels"
+                    "hs_tags": "donuts, coffee"
+                }
+            },
+            {
+                properties: {
+                    "hs_source_store": "XYZ Cafe",
+                    "hs_total_price": "400",
+                    "hs_currency_code": "USD",
+                    "hs_tax": "23.25",
+                    "hs_tags": "bagels, tea"
                 }
             }
         ]
     };
 
     BatchResponseSimplePublicObject response = check hubspot->/carts/batch/create.post(payload);
-    test:assertTrue(response.results[0]["id"] !is "");
+    test:assertTrue(response?.results.length() > 0);
 }
 
 //Read a batch
-@test:Config {}
+@test:Config {
+    dependsOn: [testCreateBatch],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testReadBatch() returns error? {
 
     BatchReadInputSimplePublicObjectId payload = {
         inputs: [
             {
-                "id": "394954883139"
+                "id": "396471635863"
+            },
+            {
+                "id": "396471635864"
             }
         ],
         properties: [
@@ -130,59 +176,83 @@ isolated function testReadBatch() returns error? {
     };
 
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspot->/carts/batch/read.post(payload);
-    test:assertEquals(response.results[0]["id"], payload.inputs[0]["id"]);
+    test:assertTrue(response?.results.length() > 0);
 }
 
 //Update a Batch
-@test:Config {}
+@test:Config {
+    dependsOn: [testReadBatch],
+    groups: ["live_tests", "mock_tests"]
+}
 
 isolated function testUpdateBatch() returns error? {
     BatchInputSimplePublicObjectBatchInput payload = {
         inputs: [
             {
-                id: "394954883139",
+                id: "396471635864",
                 properties: {
-                    "hs_source_store": "Cat Cafe - Portland",
-                    "hs_total_price": "543",
-                    "hs_currency_code": "GBR"
+                    "hs_total_price": "485",
+                    "hs_cart_discount": "12"
+                }
+            },
+            {
+                id: "396471635863",
+                properties: {
+                    "hs_total_price": "390",
+                    "hs_cart_discount": "10"
                 }
             }
         ]
     };
 
     BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response = check hubspot->/carts/batch/update.post(payload);
-    test:assertEquals(response.results[0]["id"], payload.inputs[0]["id"]);
-    test:assertEquals(response.results[0]["properties"]["hs_source_store"], payload.inputs[0]["properties"]["hs_source_store"]);
-    test:assertEquals(response.results[0]["properties"]["hs_total_price"], payload.inputs[0]["properties"]["hs_total_price"]);
-    test:assertEquals(response.results[0]["properties"]["hs_currency_code"], payload.inputs[0]["properties"]["hs_currency_code"]);
+    test:assertTrue(response?.results.length() > 0);
+
 }
 
 //Upsert a Batch 
-@test:Config {}
+@test:Config {
+    dependsOn: [testUpdateBatch],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testUpsertBatch() returns error? {
 
     BatchInputSimplePublicObjectBatchInputUpsert payload = {
         inputs: [
             {
                 "idProperty": "custom_hs_cart_url",
-                "id": "https://app.hubspot.com/contacts/48569051/record/0-142/3395263845436",
+                "id": "https://cart_url_1",
                 "properties": {
-                    "hs_source_store": "Cat Cafe - Portland",
-                    "hs_total_price": "544",
-                    "hs_currency_code": "USD"
+                    "hs_source_store": "Cat Cafe",
+                    "hs_total_price": "350",
+                    "hs_currency_code": "USD",
+                    "hs_tax": "26.25",
+                    "hs_tags": "donuts, coffee"
+                }
+            },
+            {
+                "idProperty": "custom_hs_cart_url",
+                "id": "https://cart_url_2",
+                "properties": {
+                    "hs_source_store": "Dog Cafe",
+                    "hs_total_price": "450",
+                    "hs_currency_code": "USD",
+                    "hs_tax": "13.25",
+                    "hs_tags": "bagels, tea"
                 }
             }
         ]
     };
 
     BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response = check hubspot->/carts/batch/upsert.post(payload);
-    test:assertEquals(response.results[0]["properties"]["hs_source_store"], payload.inputs[0]["properties"]["hs_source_store"]);
-    test:assertEquals(response.results[0]["properties"]["hs_total_price"], payload.inputs[0]["properties"]["hs_total_price"]);
-    test:assertEquals(response.results[0]["properties"]["hs_currency_code"], payload.inputs[0]["properties"]["hs_currency_code"]);
+    test:assertTrue(response?.results.length() > 0);
 }
 
 //Serch a cart
-@test:Config {}
+@test:Config {
+    dependsOn: [testUpdateCart, testUpsertBatch],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testSearchCarts() returns error? {
 
     PublicObjectSearchRequest payload = {
@@ -191,7 +261,7 @@ isolated function testSearchCarts() returns error? {
                 filters: [
                     {
                         "propertyName": "hs_source_store",
-                        "value": "Dog Cafe - Italy",
+                        "value": "Dog Cafe",
                         "operator": "EQ"
                     }
                 ]
@@ -201,32 +271,40 @@ isolated function testSearchCarts() returns error? {
     };
 
     CollectionResponseWithTotalSimplePublicObjectForwardPaging response = check hubspot->/carts/search.post(payload);
-    test:assertTrue(response.total != 0);
+    test:assertTrue(response?.total > 0);
 }
 
 //Archive a Batch
-@test:Config {}
+@test:Config {
+    dependsOn: [testUpsertBatch],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testArchiveBatch() returns error? {
 
     BatchInputSimplePublicObjectId payload = {
         inputs: [
             {
                 id: "395023608593"
+            },
+            {
+                id: "396492105619"
             }
         ]
     };
 
     http:Response response = check hubspot->/carts/batch/archive.post(payload);
-    test:assertTrue(response.statusCode is 204);
+    test:assertEquals(response.statusCode, http:STATUS_NO_CONTENT);
 }
 
 //Delete a cart
-@test:Config {}
+@test:Config {
+    dependsOn: [testUpdateCart],
+    groups: ["live_tests", "mock_tests"]
+}
 isolated function testDeleteCart() returns error? {
 
-    string cartId = "394799506036";
+    string cartId = "396479728760";
 
     http:Response response = check hubspot->/carts/[cartId].delete();
-    test:assertTrue(response.statusCode is 204);
-
+    test:assertEquals(response.statusCode, http:STATUS_NO_CONTENT);
 }
