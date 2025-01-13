@@ -37,7 +37,7 @@ final hscarts:Client hubspot = check new (config);
 public function main() returns error? {
 
     //Create a new batch of carts
-    hscarts:BatchInputSimplePublicObjectInputForCreate batchCreatePayload = {
+    hscarts:BatchInputSimplePublicObjectInputForCreate createBatchRequest = {
         inputs: [
             {
                 properties: {
@@ -69,14 +69,14 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject newBatch = check hubspot->/carts/batch/create.post(batchCreatePayload);
-    io:println("Created Batch : ", newBatch, "\n");
+    hscarts:BatchResponseSimplePublicObject createBatchResponse = check hubspot->/carts/batch/create.post(createBatchRequest);
+    io:println("Created Batch : ", createBatchResponse, "\n");
 
     //Read a batch of carts by internal Id 
-    string cartId1 = newBatch.results[0].id;
-    string cartId2 = newBatch.results[1].id;
-    string cartId3 = newBatch.results[2].id;
-    hscarts:BatchReadInputSimplePublicObjectId batchReadPayload = {
+    string cartId1 = createBatchResponse.results[0].id;
+    string cartId2 = createBatchResponse.results[1].id;
+    string cartId3 = createBatchResponse.results[2].id;
+    hscarts:BatchReadInputSimplePublicObjectId readBatchRequest = {
         inputs: [
             {
                 id: cartId1
@@ -95,11 +95,11 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors batchResponse = check hubspot->/carts/batch/read.post(batchReadPayload);
-    io:println("Fetched Batch Details : ", batchResponse, "\n");
+    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors readBatchResponse = check hubspot->/carts/batch/read.post(readBatchRequest);
+    io:println("Fetched Batch Details : ", readBatchResponse, "\n");
 
     //Update a Batch of Carts
-    hscarts:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
+    hscarts:BatchInputSimplePublicObjectBatchInput updateBatchRequest = {
         inputs: [
             {
                 id: cartId1,
@@ -125,11 +125,11 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors updatedResponse = check hubspot->/carts/batch/update.post(batchUpdatePayload);
-    io:println("Updated Batch : ", updatedResponse, "\n");
+    hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors updateBatchResponse = check hubspot->/carts/batch/update.post(updateBatchRequest);
+    io:println("Updated Batch : ", updateBatchResponse, "\n");
 
     //Archive a Batch of Carts by ID
-    hscarts:BatchInputSimplePublicObjectId batchArchivePayload = {
+    hscarts:BatchInputSimplePublicObjectId archiveBatchRequest = {
         inputs: [
             {
                 id: cartId1
@@ -143,6 +143,6 @@ public function main() returns error? {
         ]
     };
 
-    http:Response ArchiveHttpResponse = check hubspot->/carts/batch/archive.post(batchArchivePayload);
-    io:println("Carts with IDs ", cartId1, ", ", cartId2, " and ", cartId3, " are archived. HTTP response status code : ", ArchiveHttpResponse.statusCode, "\n");
+    http:Response archiveBatchResponse = check hubspot->/carts/batch/archive.post(archiveBatchRequest);
+    io:println("Carts with IDs ", cartId1, ", ", cartId2, " and ", cartId3, " are archived. HTTP response status code : ", archiveBatchResponse.statusCode, "\n");
 }
