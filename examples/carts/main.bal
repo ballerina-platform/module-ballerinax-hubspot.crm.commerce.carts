@@ -26,13 +26,13 @@ configurable string refreshToken = ?;
 // Create a new client using the provided configuration
 hscarts:ConnectionConfig config = {
     auth: {
-        clientId: clientId,
-        clientSecret: clientSecret,
-        refreshToken: refreshToken,
+        clientId,
+        clientSecret,
+        refreshToken,
         credentialBearer: oauth2:POST_BODY_BEARER
     }
 };
-final hscarts:Client hubspot = check new (config);
+final hscarts:Client hubspotCarts = check new (config);
 
 public function main() returns error? {
 
@@ -46,13 +46,13 @@ public function main() returns error? {
             "hs_tags": "donuts, bagels"
         }
     };
-    hscarts:SimplePublicObject createCartResponse = check hubspot->/carts.post(payload = createCartRequest);
-    io:println("Created Cart : ", createCartResponse, "\n");
+    hscarts:SimplePublicObject createCartResponse = check hubspotCarts->/carts.post(payload = createCartRequest);
+    io:println(`A new cart has been created with ID ${createCartResponse.id}.${"\n"}`);
 
     //Get a Cart by its' id
     string cartId = createCartResponse.id;
-    hscarts:SimplePublicObjectWithAssociations getCartResponse = check hubspot->/carts/[cartId]();
-    io:println("Cart Details for Cart ID - ", cartId, " : ", getCartResponse, "\n");
+    hscarts:SimplePublicObjectWithAssociations getCartResponse = check hubspotCarts->/carts/[cartId]();
+    io:println(`Fetched details for cart ID ${cartId}: ${getCartResponse}${"\n"}`);
 
     //Update the Cart
     hscarts:SimplePublicObjectInput updateCartRequest = {
@@ -60,8 +60,8 @@ public function main() returns error? {
             "hs_tax": "48.75"
         }
     };
-    hscarts:SimplePublicObject updateCartResponse = check hubspot->/carts/[cartId].patch(payload = updateCartRequest);
-    io:println("Updated Cart : ", updateCartResponse, "\n");
+    hscarts:SimplePublicObject updateCartResponse = check hubspotCarts->/carts/[cartId].patch(payload = updateCartRequest);
+    io:println(`Cart with ID ${updateCartResponse.id} has been updated successfully.${"\n"}`);
 
     //Search Carts
     hscarts:PublicObjectSearchRequest searchCartRequest = {
@@ -82,10 +82,10 @@ public function main() returns error? {
         ]
     };
 
-    hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchCartResponse = check hubspot->/carts/search.post(searchCartRequest);
-    io:println("Search Results : ", searchCartResponse.results, "\n");
+    hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchCartResponse = check hubspotCarts->/carts/search.post(searchCartRequest);
+    io:println(`Search Results: ${searchCartResponse.results}${"\n"}`);
 
     //Delete the Cart
-    http:Response deleteCartResponse = check hubspot->/carts/[cartId].delete();
-    io:println("Cart with ID - ", cartId, " is deleted, HTTP response status code : ", deleteCartResponse.statusCode, "\n");
+    http:Response deleteCartResponse = check hubspotCarts->/carts/[cartId].delete();
+    io:println(`Cart with ID ${cartId} is deleted. HTTP response status code: ${deleteCartResponse.statusCode}${"\n"}`);
 }
