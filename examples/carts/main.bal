@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
 import ballerinax/hubspot.crm.commerce.carts as hscarts;
@@ -86,6 +85,6 @@ public function main() returns error? {
     io:println(`Search Results: ${searchCartResponse.results}${"\n"}`);
 
     //Delete the Cart
-    http:Response deleteCartResponse = check hubspotCarts->/carts/[cartId].delete();
-    io:println(`Cart with ID ${cartId} is deleted. HTTP response status code: ${deleteCartResponse.statusCode}${"\n"}`);
+    _ = check hubspotCarts->/carts/[cartId].delete();
+    io:println(`Cart with ID ${cartId} is deleted. HTTP response status code: 204{"\n"}`);
 }
