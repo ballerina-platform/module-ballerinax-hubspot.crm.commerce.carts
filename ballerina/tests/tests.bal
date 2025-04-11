@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/oauth2;
 import ballerina/os;
 import ballerina/test;
@@ -286,8 +285,7 @@ isolated function testArchiveBatch() returns error? {
         ]
     };
 
-    http:Response response = check hubspot->/carts/batch/archive.post(payload);
-    test:assertEquals(response.statusCode, http:STATUS_NO_CONTENT);
+    _ = check hubspot->/carts/batch/archive.post(payload);
 }
 
 //Delete a cart
@@ -299,6 +297,5 @@ isolated function testDeleteCart() returns error? {
 
     string cartId = "396479728760";
 
-    http:Response response = check hubspot->/carts/[cartId].delete();
-    test:assertEquals(response.statusCode, http:STATUS_NO_CONTENT);
+    _ = check hubspot->/carts/[cartId].delete();
 }

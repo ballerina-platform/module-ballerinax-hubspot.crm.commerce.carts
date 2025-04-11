@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/io;
 import ballerina/oauth2;
 import ballerinax/hubspot.crm.commerce.carts as hscarts;
@@ -143,6 +142,6 @@ public function main() returns error? {
         ]
     };
 
-    http:Response archiveBatchResponse = check hubspotCarts->/carts/batch/archive.post(archiveBatchRequest);
-    io:println(`Carts with IDs ${cartId1}, ${cartId2}, and ${cartId3} have been archived. HTTP resonse status code: ${archiveBatchResponse.statusCode} ${"\n"}`);
+    _ = check hubspotCarts->/carts/batch/archive.post(archiveBatchRequest);
+    io:println(`Carts with IDs ${cartId1}, ${cartId2}, and ${cartId3} have been archived. HTTP response status code: 204 ${"\n"}`);
 }

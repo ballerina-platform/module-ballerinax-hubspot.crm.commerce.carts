@@ -1,5 +1,5 @@
 [package]
-org = "induwarag"
+org = "ballerina"
 name = "carts"
 version = "0.1.0"
 distribution = "2201.10.3"
