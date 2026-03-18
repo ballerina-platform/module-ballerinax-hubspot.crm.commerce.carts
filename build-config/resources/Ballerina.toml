@@ -5,7 +5,7 @@ name = "hubspot.crm.commerce.carts"
 version = "@toml.version@"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["commerce", "carts", "Vendor/HubSpot", "Area/CRM", "Type/Connector"]
+keywords = ["commerce", "carts", "Vendor/HubSpot", "Area/CRM & Sales", "Type/Connector"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts"
 
 [build-options]
