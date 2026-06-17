@@ -400,7 +400,7 @@ public type Filter record {
     string[] values?;
     # The filter value to match against
     string value?;
-    # null
+    # The comparison operator used to evaluate the filter condition against the property value.
     "EQ"|"NEQ"|"LT"|"LTE"|"GT"|"GTE"|"BETWEEN"|"IN"|"NOT_IN"|"HAS_PROPERTY"|"NOT_HAS_PROPERTY"|"CONTAINS_TOKEN"|"NOT_CONTAINS_TOKEN" operator;
 };
 
