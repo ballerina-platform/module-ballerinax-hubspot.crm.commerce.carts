@@ -58,7 +58,7 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, httpHeaders);
     }
 
-    # Read
+    # Retrieve a cart by ID
     #
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
@@ -75,7 +75,7 @@ public isolated client class Client {
         return self.clientEp->get(resourcePath, httpHeaders);
     }
 
-    # Archive
+    # Archive a cart by ID
     #
     # + headers - Headers to be sent with the request 
     # + return - No content 
@@ -89,7 +89,7 @@ public isolated client class Client {
         return self.clientEp->delete(resourcePath, headers = httpHeaders);
     }
 
-    # Update
+    # Update a cart by ID
     #
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
@@ -159,7 +159,7 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, httpHeaders);
     }
 
-    # List
+    # Retrieve a page of carts
     #
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
@@ -176,7 +176,7 @@ public isolated client class Client {
         return self.clientEp->get(resourcePath, httpHeaders);
     }
 
-    # Create
+    # Create a new cart
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
@@ -193,7 +193,7 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, httpHeaders);
     }
 
-    # Create or update a batch of carts by unique property values
+    # Batch upsert carts by property
     #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
@@ -210,6 +210,8 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, httpHeaders);
     }
 
+    # Search carts
+    #
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function post carts/search(PublicObjectSearchRequest payload, map<string|string[]> headers = {}) returns CollectionResponseWithTotalSimplePublicObjectForwardPaging|error {

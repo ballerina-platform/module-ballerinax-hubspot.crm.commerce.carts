@@ -19,40 +19,65 @@
 
 import ballerina/http;
 
+# Standard error response structure returned when an API request fails.
 public type StandardError record {
+    # Optional sub-category providing additional error classification detail.
     record {} subCategory?;
+    # Key-value map of contextual metadata associated with the error.
     record {|string[]...;|} context;
+    # Map of relevant links related to the error for further reference.
     record {|string...;|} links;
+    # Unique identifier for the error instance.
     string id?;
+    # High-level category classifying the type of error.
     string category;
+    # Human-readable message describing the error.
     string message;
+    # List of detailed error objects providing granular failure information.
     ErrorDetail[] errors;
+    # HTTP status code or status string associated with the error.
     string status;
 };
 
+# Paginated collection of associated object IDs returned from an association query.
 public type CollectionResponseAssociatedId record {
+    # Pagination metadata containing cursors for navigating to the next or previous page.
     Paging paging?;
+    # Array of associated IDs returned in the current page of results.
     AssociatedId[] results;
 };
 
+# Defines the target object and association types for a cart association request.
 public type PublicAssociationsForObject record {
+    # List of association type specifications defining the relationship kind.
     AssociationSpec[] types;
+    # Represents a public object identifier containing a unique ID string.
     PublicObjectId to;
 };
 
+# Batch operation response containing status, timing, and resulting cart objects.
 public type BatchResponseSimplePublicObject record {
+    # Timestamp indicating when the batch operation completed.
     string completedAt;
+    # Timestamp indicating when the batch operation was requested.
     string requestedAt?;
+    # Timestamp indicating when the batch operation began processing.
     string startedAt;
+    # Map of supplementary links related to the batch operation response.
     record {|string...;|} links?;
+    # List of cart objects returned from the batch operation.
     SimplePublicObject[] results;
+    # Current processing status of the batch request.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# A logical grouping of filters applied together when searching cart records.
 public type FilterGroup record {
+    # List of filter conditions within this group.
     Filter[] filters;
 };
 
+# Detailed information about a specific error encountered during a request.
 public type ErrorDetail record {
     # A specific category that contains more specific detail about the error
     string subCategory?;
@@ -66,52 +91,84 @@ public type ErrorDetail record {
     string message;
 };
 
+# Pagination metadata for forward-only cursor-based result traversal.
 public type ForwardPaging record {
     NextPage next?;
 };
 
+# A simple object containing the unique identifier of a public resource.
 public type SimplePublicObjectId record {
+    # The unique identifier of the object.
     string id;
 };
 
+# Batch upsert response containing results, errors, and status for each processed cart object.
 public type BatchResponseSimplePublicUpsertObjectWithErrors record {
+    # Timestamp indicating when the batch operation completed.
     string completedAt;
+    # Total number of errors encountered during the batch operation.
     int:Signed32 numErrors?;
+    # Timestamp indicating when the batch request was received.
     string requestedAt?;
+    # Timestamp indicating when the batch operation began processing.
     string startedAt;
+    # Map of relevant hyperlinks associated with the batch response.
     record {|string...;|} links?;
+    # List of successfully upserted cart objects from the batch operation.
     SimplePublicUpsertObject[] results;
+    # List of errors encountered for individual records during the batch operation.
     StandardError[] errors?;
+    # Current processing status of the batch upsert request.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# Input payload for batch reading cart objects by their unique identifiers.
 public type BatchReadInputSimplePublicObjectId record {
+    # List of properties for which historical values should be returned.
     string[] propertiesWithHistory?;
     # The name of a property whose values are unique for this object
     string idProperty?;
+    # List of cart object IDs to retrieve in the batch.
     SimplePublicObjectId[] inputs;
+    # List of property names to include in the response for each cart.
     string[] properties?;
 };
 
+# Response object containing the results, status, and timing details for a batch upsert operation on cart records.
 public type BatchResponseSimplePublicUpsertObject record {
+    # Timestamp indicating when the batch operation completed.
     string completedAt;
+    # Timestamp indicating when the batch operation was requested.
     string requestedAt?;
+    # Timestamp indicating when the batch operation began processing.
     string startedAt;
+    # Map of relevant hyperlinks associated with the batch operation response.
     record {|string...;|} links?;
+    # List of upserted cart objects returned by the batch operation.
     SimplePublicUpsertObject[] results;
+    # Current processing status of the batch operation.
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# Represents a property value paired with its source metadata and the timestamp of the last update.
 public type ValueWithTimestamp record {
+    # Identifier of the source that set the property value.
     string sourceId?;
+    # Type of source that originated the property value.
     string sourceType;
+    # Human-readable label describing the source of the value.
     string sourceLabel?;
+    # ID of the user who last updated the property value.
     int:Signed32 updatedByUserId?;
+    # The property value associated with the cart record.
     string value;
+    # Timestamp indicating when the property value was last updated.
     string timestamp;
 };
 
+# Input payload containing a list of cart object IDs for a batch operation.
 public type BatchInputSimplePublicObjectId record {
+    # List of cart object IDs to process in the batch request.
     SimplePublicObjectId[] inputs;
 };
 
@@ -144,23 +201,37 @@ public type GetCrmV3ObjectsCartsQueries record {
     string[] properties?;
 };
 
+# Input payload containing a list of cart objects to create or update in a batch upsert operation.
 public type BatchInputSimplePublicObjectBatchInputUpsert record {
+    # List of cart objects to upsert in the batch operation.
     SimplePublicObjectBatchInputUpsert[] inputs;
 };
 
+# Paginated collection of cart objects with a total count and forward paging cursor.
 public type CollectionResponseWithTotalSimplePublicObjectForwardPaging record {
+    # Total number of cart objects matching the request.
     int:Signed32 total;
+    # Pagination metadata for forward-only cursor-based result traversal.
     ForwardPaging paging?;
+    # Array of cart objects returned in the current page.
     SimplePublicObject[] results;
 };
 
+# Represents a cart object with its properties, metadata, and change history.
 public type SimplePublicObject record {
+    # Timestamp indicating when the cart object was created.
     string createdAt;
+    # Indicates whether the cart object has been archived.
     boolean archived?;
+    # Timestamp indicating when the cart object was archived.
     string archivedAt?;
+    # Map of property names to their historical values with timestamps.
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # Unique identifier of the cart object.
     string id;
+    # Map of cart property names to their current values.
     record {|string?...;|} properties?;
+    # Timestamp indicating when the cart object was last updated.
     string updatedAt;
 };
 
@@ -214,108 +285,174 @@ public type PostCrmV3ObjectsCartsBatchReadQueries record {
     boolean archived = false;
 };
 
+# Represents a public object identifier containing a unique ID string.
 public type PublicObjectId record {
+    # Unique identifier of the public object.
     string id;
 };
 
+# Pagination metadata containing cursors for navigating to the next or previous page.
 public type Paging record {
     NextPage next?;
+    # Pagination cursor details for navigating to the previous page of results
     PreviousPage prev?;
 };
 
+# Request payload for searching cart objects with filters, sorting, and pagination.
 public type PublicObjectSearchRequest record {
+    # Full-text search query string to match against cart properties.
     string query?;
+    # Maximum number of cart objects to return per page.
     int:Signed32 'limit?;
+    # Cursor token for retrieving the next page of results
     string after?;
+    # List of sort criteria to order the search results
     string[] sorts?;
+    # List of cart property names to include in the response
     string[] properties?;
+    # Groups of filters used to narrow search results
     FilterGroup[] filterGroups?;
 };
 
+# Input object for a batch upsert operation, containing the record identifier and cart property values to create or update
 public type SimplePublicObjectBatchInputUpsert record {
     # The name of a property whose values are unique for this object
     string idProperty?;
+    # Trace identifier for tracking the write operation
     string objectWriteTraceId?;
+    # Unique identifier of the cart record to upsert
     string id;
+    # Map of cart property names to their values for the upsert
     record {|string...;|} properties?;
 };
 
+# Batch operation response containing processed cart records, status, timestamps, and any errors encountered during processing
 public type BatchResponseSimplePublicObjectWithErrors record {
+    # Timestamp indicating when the batch operation completed
     string completedAt;
+    # Total number of errors encountered during the batch operation
     int:Signed32 numErrors?;
+    # Timestamp indicating when the batch operation was requested
     string requestedAt?;
+    # Timestamp indicating when the batch operation began processing
     string startedAt;
+    # Map of relevant link names to associated URIs for the batch response
     record {|string...;|} links?;
+    # Array of successfully processed cart objects from the batch operation
     SimplePublicObject[] results;
+    # Array of errors for records that failed during batch processing
     StandardError[] errors?;
+    # Current processing status of the batch operation
     "PENDING"|"PROCESSING"|"CANCELED"|"COMPLETE" status;
 };
 
+# Input object for creating or updating a cart, containing property values and optional association definitions
 public type SimplePublicObjectInput record {
+    # Trace identifier for tracking the write operation
     string objectWriteTraceId?;
+    # Key-value pairs of cart properties to set, e.g. name, currency, and external cart ID.
     record {|string...;|} properties?;
 };
 
+# A paginated collection of cart objects, each including their associated records.
 public type CollectionResponseSimplePublicObjectWithAssociationsForwardPaging record {
+    # Pagination metadata for forward-only cursor-based result traversal.
     ForwardPaging paging?;
+    # Array of cart objects returned in the current page, each with associations.
     SimplePublicObjectWithAssociations[] results;
 };
 
+# Defines the category and type identifier for an association between objects.
 public type AssociationSpec record {
+    # The category of the association: HubSpot-defined, user-defined, or integrator-defined.
     "HUBSPOT_DEFINED"|"USER_DEFINED"|"INTEGRATOR_DEFINED" associationCategory;
+    # Numeric ID identifying the specific association type.
     int:Signed32 associationTypeId;
 };
 
+# A cart object including its properties, timestamps, and any associated records.
 public type SimplePublicObjectWithAssociations record {
+    # Map of associated object collections, keyed by association type.
     record {|CollectionResponseAssociatedId...;|} associations?;
+    # Timestamp indicating when the cart record was created.
     string createdAt;
+    # Indicates whether the cart record has been archived.
     boolean archived?;
+    # Timestamp indicating when the cart record was archived.
     string archivedAt?;
+    # Map of property names to their historical values with timestamps.
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # The unique identifier of the cart record.
     string id;
+    # Key-value pairs of cart property names and their current values.
     record {|string?...;|} properties;
+    # Timestamp indicating when the cart record was last updated.
     string updatedAt;
 };
 
+# Defines a filter condition using a property, operator, and comparison value(s).
 public type Filter record {
+    # The upper bound value used with the BETWEEN operator.
     string highValue?;
+    # The name of the cart property to evaluate in the filter condition.
     string propertyName;
+    # List of values used with multi-value operators such as IN or NOT_IN.
     string[] values?;
+    # The filter value to match against
     string value?;
     # null
     "EQ"|"NEQ"|"LT"|"LTE"|"GT"|"GTE"|"BETWEEN"|"IN"|"NOT_IN"|"HAS_PROPERTY"|"NOT_HAS_PROPERTY"|"CONTAINS_TOKEN"|"NOT_CONTAINS_TOKEN" operator;
 };
 
+# Pagination cursor details for navigating to the previous page of results
 public type PreviousPage record {
+    # Cursor token representing the start of the previous page
     string before;
+    # URL link to the previous page of results
     string link?;
 };
 
+# A batch input wrapper containing an array of cart creation objects to process in a single request
 public type BatchInputSimplePublicObjectInputForCreate record {
+    # Array of cart creation input objects to process in batch
     SimplePublicObjectInputForCreate[] inputs;
 };
 
+# A batch input wrapper containing an array of cart update objects to process in a single request
 public type BatchInputSimplePublicObjectBatchInput record {
+    # Array of cart update input objects to process in batch
     SimplePublicObjectBatchInput[] inputs;
 };
 
+# Represents a cart object returned after an upsert operation, indicating whether it was newly created or updated
 public type SimplePublicUpsertObject record {
+    # Timestamp when the cart object was created
     string createdAt;
+    # Indicates whether the cart object is archived
     boolean archived?;
+    # Timestamp when the cart object was archived
     string archivedAt?;
+    # Indicates whether the object was newly created by the upsert
     boolean 'new;
+    # Map of property names to their historical values with timestamps
     record {|ValueWithTimestamp[]...;|} propertiesWithHistory?;
+    # The unique identifier of the cart object
     string id;
+    # Map of property names to their current string values
     record {|string...;|} properties;
+    # Timestamp when the cart object was last updated
     string updatedAt;
 };
 
+# Represents a single cart update input, identified by an object ID or unique property value, with properties to update
 public type SimplePublicObjectBatchInput record {
     # The name of a property whose values are unique for this object
     string idProperty?;
+    # Trace identifier for tracking the write operation
     string objectWriteTraceId?;
     # The id to be updated. This can be the object id, or the unique property value of the idProperty property
     string id;
+    # Map of cart property names to their updated values
     record {|string...;|} properties?;
 };
 
