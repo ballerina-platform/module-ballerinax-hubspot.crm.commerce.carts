@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/actions/workflows/ci.yml/badge.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/actions/workflows/ci.yml)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts.svg)](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/commits/master)
-[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/hubspot.crm.commerce.carts.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%hubspot.crm.commerce.carts)
+[![GitHub Issues](https://img.shields.io/github/issues/ballerina-platform/ballerina-library/module/hubspot.crm.commerce.carts.svg?label=Open%20Issues)](https://github.com/ballerina-platform/ballerina-library/labels/module%2Fhubspot.crm.commerce.carts)
 
 ## Overview
 
@@ -192,7 +192,7 @@ public function main() returns error? {
 
 ## Examples
 
-The `HubSpot CRM Commerce Carts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/), covering the following use cases:
+The `HubSpot CRM Commerce Carts` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/), covering the following use cases:
 
 1. [Single Cart Management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/carts/) - Create, retrieve, update, search, and delete a single cart for a customer.
 2. [Batch of Carts Management](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.carts/tree/main/examples/batch-of-carts) - Create, retrieve, update, and archive a batch of carts for customers.
